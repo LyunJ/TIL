@@ -38,3 +38,19 @@ docker run -it --name worker3 --hostname worker3 ubuntu
 2. hostname을 가급적 먼저 수정하여 설정파일에 들어갈 hostname을 나중에 수정하지 않게끔 하자
 3. 스칼라는 아직까진 2.12버전이 많이 쓰이는 것 같다(maven plugin도 2.12버전을 지원하는 것이 많다)
 4. hadoop 분산 시스템을 초기화 할 때는 datanode 디렉토리를 완전히 삭제한 후 `hdfs namenode -format`을 실행시켜야 datanode와 namenode가 동일한 clusterID를 갖게된다
+5. 각각의 클러스터의 hostname을 /etc/hosts에 ip주소와 함께 등록해야한다
+
+** 에러 **
+
+1. broker1의 이미지로 다른 브로커를 구성했을 때 다른 설정은 맞는데 커넥션이 이루어지지 않는 경우
+   broker1에서 테스트 하지 말고 다른 브로커에서 zookeeper와 kafka 서버를 구동시켜보자(데몬X)
+   `Configured broker.id 2 doesn't match stored broker.id Some(1) in meta.properties.`
+   이 경우는 /tmp/kafka-logs/meta.properties에 broker.id가 변경되지 않아 생긴 문제였다
+   따라서 rm /tmp/kafka-logs/meta.properties로 삭제시킨 후 재작동하였다
+2. 하둡 클러스터와 카프카 브로커를 모두 구성한 뒤 spark-shell를 구동시킬 때 생긴 문제
+   namenode host를 찾지 못하는데 spark-default.conf에서
+   `spark.eventLog.enabled true spark.eventLog.dir hdfs://namenode:8021/spark_enginelog`
+   를 주석처리하였다
+3. ` spark.read.format("kafka").option("kafka.bootstrap.servers", "172.17.0.2:9092,172.17.0.3:9093,172.17.0.4:9094").option("subscribe", "bmt").option("startingOffsets","earliest").load()` 이후 .show로 브로커의 로그에 저장된 값을 읽으려 했지만 `UnknownHostException: broker2`가 발생
+   master 서버에서 /etc/hosts에 broker ip 정보를 등록했지만 이번에는 진행창은 뜨지만 더이상 진행되지 않는 상황 발생
+   worker 서버에도 똑같이 /etc/hosts에 broker ip 정보를 등록하니 정상 작동하였다
