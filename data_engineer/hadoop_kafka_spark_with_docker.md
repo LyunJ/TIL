@@ -11,3 +11,30 @@ N대의 데이터 공급자와 M대의 데이터 소비자를 연결시켜 필�
 현재 하나의 AWS 서버를 갖고 있고 Hadoop과 Kafka를 분산 환경에서 구동시키기 위해 docker를 사용하여 해당 환경을 구축하기로 했다
 
 이 과정은 https://1mini2.tistory.com/99 를 참조하여 만들어졌다
+
+먼저 도커를 사용해 master 서버와 worker 1~3 서버를 만들어 준다
+서버 환경을 직접 구축해 볼 것이므로 다른 커스텀 이미지를 사용하지 않고 우분투 공식 이미지를 사용한다
+
+```
+-- terminal1
+docker run -it --name master --hostname master ubuntu
+-- terminal2
+docker run -it --name worker1 --hostname worker1 ubuntu
+-- terminal3
+docker run -it --name worker2 --hostname worker2 ubuntu
+-- terminal4
+docker run -it --name worker3 --hostname worker3 ubuntu
+```
+
+위의 명령어를 실행시키면 ubuntu 이미지를 다운로드하고 이 이미지로 master,worker 1~3 컨테이너를 만들고 bash쉘에 접속한다
+같은 이미지는 한 번만 다운로드된다
+
+**
+유의할 점
+**
+
+1. 분산 시스템을 구축하기 위해서는 각각의 서버가 ssh를 통해 통신하여야한다
+   kafka 분산시스템을 만들 때 ssh를 간과하여 한참 헤맸다
+2. hostname을 가급적 먼저 수정하여 설정파일에 들어갈 hostname을 나중에 수정하지 않게끔 하자
+3. 스칼라는 아직까진 2.12버전이 많이 쓰이는 것 같다(maven plugin도 2.12버전을 지원하는 것이 많다)
+4. hadoop 분산 시스템을 초기화 할 때는 datanode 디렉토리를 완전히 삭제한 후 `hdfs namenode -format`을 실행시켜야 datanode와 namenode가 동일한 clusterID를 갖게된다
