@@ -54,3 +54,5 @@ docker run -it --name worker3 --hostname worker3 ubuntu
 3. ` spark.read.format("kafka").option("kafka.bootstrap.servers", "172.17.0.2:9092,172.17.0.3:9093,172.17.0.4:9094").option("subscribe", "bmt").option("startingOffsets","earliest").load()` 이후 .show로 브로커의 로그에 저장된 값을 읽으려 했지만 `UnknownHostException: broker2`가 발생
    master 서버에서 /etc/hosts에 broker ip 정보를 등록했지만 이번에는 진행창은 뜨지만 더이상 진행되지 않는 상황 발생
    worker 서버에도 똑같이 /etc/hosts에 broker ip 정보를 등록하니 정상 작동하였다
+4. 외부에서 카프카에 데이터를 줄 때는 metadata라는 것을 kafka로부터 받게 되는데 이 때 metadata에는 config/server.properties파일의 advertise.listener에 적혀있는 주소를 넘겨준다
+   이 때 주소가 ip가 아닌 hostname으로 되어있으면 외부에서는 찾아올 수 없으므로 꼭 ip주소로 적어놓자
