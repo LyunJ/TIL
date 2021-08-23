@@ -1,0 +1,168 @@
+prod_id,prod_nm,alcohol,frozen
+1,tropical fruit,0,0
+2,whole milk,0,0
+3,pip fruit,0,0
+4,other vegetables,0,0
+5,rolls/buns,0,0
+6,pot plants,0,0
+7,citrus fruit,0,0
+8,beef,0,0
+9,frankfurter,0,0
+10,chicken,0,0
+11,butter,0,0
+12,fruit/vegetable juice,0,0
+13,packaged fruit/vegetables,0,0
+14,chocolate,0,0
+15,specialty bar,0,0
+16,butter milk,0,0
+17,bottled water,0,0
+18,yogurt,0,0
+19,sausage,0,0
+20,brown bread,0,0
+21,hamburger meat,0,0
+22,root vegetables,0,0
+23,pork,0,0
+24,pastry,0,0
+25,canned beer,1,0
+26,berries,0,0
+27,coffee,0,0
+28,misc. beverages,0,0
+29,ham,0,0
+30,turkey,0,0
+31,curd cheese,0,0
+32,red/blush wine,1,0
+33,frozen potato products,0,1
+34,flour,0,0
+35,sugar,0,0
+36,frozen meals,0,1
+37,herbs,0,0
+38,soda,0,0
+39,detergent,0,0
+40,grapes,0,0
+41,processed cheese,0,0
+42,fish,0,0
+43,sparkling wine,1,0
+44,newspapers,0,0
+45,curd,0,0
+46,pasta,0,0
+47,popcorn,0,0
+48,finished products,0,0
+49,beverages,0,0
+50,bottled beer,1,0
+51,dessert,0,0
+52,dog food,0,0
+53,specialty chocolate,0,0
+54,condensed milk,0,0
+55,cleaner,0,0
+56,white wine,1,0
+57,meat,0,0
+58,ice cream,0,1
+59,hard cheese,0,0
+60,cream cheese,0,0
+61,liquor,1,0
+62,pickled vegetables,0,0
+63,liquor (appetizer),1,0
+64,UHT-milk,0,0
+65,candy,0,0
+66,onions,0,0
+67,hair spray,0,0
+68,photo/film,0,0
+69,domestic eggs,0,0
+70,margarine,0,0
+71,shopping bags,0,0
+72,salt,0,0
+73,oil,0,0
+74,whipped/sour cream,0,0
+75,frozen vegetables,0,1
+76,sliced cheese,0,0
+77,dish cleaner,0,0
+78,baking powder,0,0
+79,specialty cheese,0,0
+80,salty snack,0,0
+81,Instant food products,0,0
+82,pet care,0,0
+83,white bread,0,0
+84,female sanitary products,0,0
+85,cling film/bags,0,0
+86,soap,0,0
+87,frozen chicken,0,1
+88,house keeping products,0,0
+89,spread cheese,0,0
+90,decalcifier,0,0
+91,frozen dessert,0,1
+92,vinegar,0,0
+93,nuts/prunes,0,0
+94,potato products,0,0
+95,frozen fish,0,1
+96,hygiene articles,0,0
+97,artif. sweetener,0,0
+98,light bulbs,0,0
+99,canned vegetables,0,0
+100,chewing gum,0,0
+101,canned fish,0,0
+102,cookware,0,0
+103,semi-finished bread,0,0
+104,cat food,0,0
+105,bathroom cleaner,0,0
+106,prosecco,0,0
+107,liver loaf,0,0
+108,zwieback,0,0
+109,canned fruit,0,0
+110,frozen fruits,0,1
+111,brandy,0,0
+112,baby cosmetics,0,0
+113,spices,0,0
+114,napkins,0,0
+115,waffles,0,0
+116,sauces,0,0
+117,rum,1,0
+118,chocolate marshmallow,0,0
+119,long life bakery product,0,0
+120,bags,0,0
+121,sweet spreads,0,0
+122,soups,0,0
+123,mustard,0,0
+124,specialty fat,0,0
+125,instant coffee,0,0
+126,snack products,0,0
+127,organic sausage,0,0
+128,soft cheese,0,0
+129,mayonnaise,0,0
+130,dental care,0,0
+131,roll products,0,0
+132,kitchen towels,0,0
+133,flower soil/fertilizer,0,0
+134,cereals,0,0
+135,meat spreads,0,0
+136,dishes,0,0
+137,male cosmetics,0,0
+138,candles,0,0
+139,whisky,1,0
+140,tidbits,0,0
+141,cooking chocolate,0,0
+142,seasonal products,0,0
+143,liqueur,1,0
+144,abrasive cleaner,0,0
+145,syrup,0,0
+146,ketchup,0,0
+147,cream,0,0
+148,skin care,0,0
+149,rubbing alcohol,0,0
+150,nut snack,0,0
+151,cocoa drinks,0,0
+152,softener,0,0
+153,organic products,0,0
+154,cake bar,0,0
+155,honey,0,0
+156,jam,0,0
+157,kitchen utensil,0,0
+158,flower (seeds),0,0
+159,rice,0,0
+160,tea,0,0
+161,salad dressing,0,0
+162,specialty vegetables,0,0
+163,pudding powder,0,0
+164,ready soups,0,0
+165,make up remover,0,0
+166,toilet cleaner,0,0
+167,preservation products,0,0

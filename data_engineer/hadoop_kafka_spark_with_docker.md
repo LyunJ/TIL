@@ -29,9 +29,7 @@ docker run -it --name worker3 --hostname worker3 ubuntu
 위의 명령어를 실행시키면 ubuntu 이미지를 다운로드하고 이 이미지로 master,worker 1~3 컨테이너를 만들고 bash쉘에 접속한다
 같은 이미지는 한 번만 다운로드된다
 
-**
-유의할 점
-**
+**유의할 점**
 
 1. 분산 시스템을 구축하기 위해서는 각각의 서버가 ssh를 통해 통신하여야한다
    kafka 분산시스템을 만들 때 ssh를 간과하여 한참 헤맸다
@@ -40,7 +38,7 @@ docker run -it --name worker3 --hostname worker3 ubuntu
 4. hadoop 분산 시스템을 초기화 할 때는 datanode 디렉토리를 완전히 삭제한 후 `hdfs namenode -format`을 실행시켜야 datanode와 namenode가 동일한 clusterID를 갖게된다
 5. 각각의 클러스터의 hostname을 /etc/hosts에 ip주소와 함께 등록해야한다
 
-** 에러 **
+**에러**
 
 1. broker1의 이미지로 다른 브로커를 구성했을 때 다른 설정은 맞는데 커넥션이 이루어지지 않는 경우
    broker1에서 테스트 하지 말고 다른 브로커에서 zookeeper와 kafka 서버를 구동시켜보자(데몬X)
@@ -56,3 +54,7 @@ docker run -it --name worker3 --hostname worker3 ubuntu
    worker 서버에도 똑같이 /etc/hosts에 broker ip 정보를 등록하니 정상 작동하였다
 4. 외부에서 카프카에 데이터를 줄 때는 metadata라는 것을 kafka로부터 받게 되는데 이 때 metadata에는 config/server.properties파일의 advertise.listener에 적혀있는 주소를 넘겨준다
    이 때 주소가 ip가 아닌 hostname으로 되어있으면 외부에서는 찾아올 수 없으므로 꼭 ip주소로 적어놓자
+
+**의문점**
+
+1. server.properties의 advertise.listener는 콤마로 구분된 리스트라고 들었는데 두개를 넣었을때 변화가 없다... 첫번째 인자로 실패했을 때 두번째를 트라이하는 기능이 없는것인가?
