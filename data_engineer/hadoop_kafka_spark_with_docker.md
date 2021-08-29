@@ -422,7 +422,7 @@ vim config/server.properties
 // 아래의 문자열 추가 (broker1의 경우)
 broker.id=1
 listeners=PLAINTEXT://:9092
-advertised.listeners=PLAINTEXT://broker-server1:9092
+advertised.listeners=PLAINTEXT://(broker1 ip):9092
 zookeeper.connect=broker1:2181,broker2:2181,broker3:2181
 ```
 
