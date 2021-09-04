@@ -28,6 +28,7 @@ Created on Sat Aug 21 12:53:16 2021
 # =============================================================================
 # =============================================================================
 
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import r2_score, mean_absolute_error  # 결정계수
 from scipy.stats import ttest_rel
 from sklearn.metrics import classification_report, precision_score
@@ -420,26 +421,25 @@ dt4_t.corr()['Value']['TIME']
 #           dt4_t.Value[dt4_t.LOCATION == 'KOR']) # 독립표본
 
 
-# q2 = dt4[dt4.LOCATION.isin(['KOR', 'JPN'])]
-# q2.columns
-# q2_out = pd.pivot_table(data=q2, index=['TIME', 'SUBJECT'], columns=[
-#                         'LOCATION'], values='Value')
+q2 = dt4[dt4.LOCATION.isin(['KOR', 'JPN'])]
+q2.columns
+q2_out = pd.pivot_table(data=q2, index=['TIME', 'SUBJECT'], columns=[
+                        'LOCATION'], values='Value')
 
-# q2_out=q2_out.dropna()
-# q2_out=q2_out.reset_index()
+q2_out = q2_out.dropna()
+q2_out = q2_out.reset_index()
 
-# sub_list=q2_out.SUBJECT.unique()
+sub_list = q2_out.SUBJECT.unique()
 
-# from scipy.stats import ttest_rel
-# q2_out2=[]
+q2_out2 = []
 
-# for i in sub_list:
-#     temp=q2_out[q2_out.SUBJECT==i]
-#     pvalue=ttest_rel(temp['KOR'],temp['JPN']).pvalue # 대응표본
-#     q2_out2=q2_out2+[[i,pvalue]]
-# q2_out2=pd.DataFrame(q2_out2,columns=['sub','pvalue'])
-# q2_out2[q2_out2.pvalue >= 0.05] # 차이가 없다는 말은 귀무가설을 채택하겠다는 의미이므로
-# # pvalue가 0.05 이상인 경우 귀무가설 기각하지 않음 즉 채택
+for i in sub_list:
+    temp = q2_out[q2_out.SUBJECT == i]
+    pvalue = ttest_rel(temp['KOR'], temp['JPN']).pvalue  # 대응표본
+    q2_out2 = q2_out2+[[i, pvalue]]
+q2_out2 = pd.DataFrame(q2_out2, columns=['sub', 'pvalue'])
+q2_out2[q2_out2.pvalue >= 0.05]  # 차이가 없다는 말은 귀무가설을 채택하겠다는 의미이므로
+# pvalue가 0.05 이상인 경우 귀무가설 기각하지 않음 즉 채택
 
 # %%
 
@@ -477,6 +477,22 @@ pred = lm2.predict(temp[['TIME']])
 
 mape = (((temp.KOR - pred).abs() / temp.KOR).sum() * 100)/len(temp)
 mape
+
+# %%
+# (기타)
+q3_out = []
+
+sub_list = q3.SUBJECT.unique()
+
+for i in sub_list:
+    temp = q3[q3.SUBJECT == i]
+    globals()['lm_'+str(i)] = LinearRegression().fit(temp[['TIME']], temp.KOR)
+    # X(입력변수) 2차원 구조로 입력
+    r2_score = eval('lm_'+str(i)).score(temp[['TIME']], temp.KOR)
+    q3_out = q3_out+[[i, r2_score]]
+
+q3_out = pd.DataFrame(q3_out, columns=['sub', 'r2_score'])
+
 
 # %%
 
@@ -520,7 +536,10 @@ mape
 # from sklearn.tree import DecisionTreeClassifier
 # from sklearn.tree import export_graphviz
 # import pydot
-
+dt5 = pd.read_csv('Dataset_05.csv', na_values=["NA", "?", "", " "])
+dt5.columns
+dt5.dtypes
+dt5.shape
 
 # %%
 
@@ -531,6 +550,7 @@ mape
 # (String 타입 변수의 경우 White Space(Blank)를 결측으로 처리한다) (답안 예시) 123
 # =============================================================================
 
+dt5.isna().sum().sum()
 
 # %%
 
@@ -541,7 +561,12 @@ mape
 # (답안 예시) 0.2345, N
 # =============================================================================
 
+q2 = dt5.dropna()
 
+q2_tab = pd.crosstab(index=q2.Gender, columns=q2.Segmentation)
+
+q2_out = sc.chi2_contingency(q2_tab)
+q2_out[1]
 # %%
 
 # =============================================================================
@@ -561,3 +586,18 @@ mape
 # 기술하시오.
 # (답안 예시) 0.12
 # =============================================================================
+q3 = q2[q2.Segmentation.isin(['A', 'D'])]
+
+
+train, test = train_test_split(q3, test_size=0.3, random_state=123)
+
+dt = DecisionTreeClassifier(max_depth=7, random_state=123)
+
+x_var = ['Age_gr', 'Gender', 'Work_Experience', 'Family_Size',
+         'Ever_Married', 'Graduated',  'Spending_Score']
+
+dt.fit(train[x_var], train.Segmentation)
+
+pred = dt.predict(test[x_var])
+
+dt.score(test[x_var], test.Segmentation)

@@ -506,6 +506,61 @@ vim /etc/hosts
 
 이제 HADOOP MASTER 서버에서 KAFKA IP를 사용해 CONSUMER를 실행시킬 수 있다
 
+### Jupyter notebook & findspark 설치
+
+#### Jupyter notebook 설치
+
+```
+pip3 install jupyter
+```
+
+#### findspark 설치
+
+```
+pip3 install findspark
+```
+
+### Jupyter notebook 실행하기
+
+```
+jupyter notebook --generate-config
+
+ipython
+In [1]: from notebook.auth import passwd   
+In [2]: passwd()
+Enter password:  // 사용할 비민번호 입력
+Verify password:
+Out[2]: 'argon2:$argon2id$v=19$m=10240,t=1 ... '  //복사해놓기!
+In [3]: exit()
+```
+
+jupyter notebook의 홈디렉터리를 만들어준다
+
+```
+mkdir /root/jupyter_dir
+vim /root/.jupyter/jupyter_notebook_config.py
+// 아래 문자열 추가
+c.NotebookApp.ip = '0.0.0.0'
+c.NotebookApp.password ='argon2:$argon2id$v=19$m=10240,t=10,p=8$t+Ki3Y…’ //아까 복사해 놓은 문자열 입력
+c.NotebookApp.notebook_dir = '/root/jupyter_dir/
+```
+
+jupyter notebook 실행
+
+```
+jupyter notebook --allow-root
+```
+
+
+## 테스트 하는 법
+
+1. Local로 시작하는 파일을 로컬에 저장
+2. Spark로 시작하는 파일을 Hadoop Master 서버에 저장
+3. gy1_trick.json을 로컬에 저장
+4. 로컬과 Hadoop master 서버에서 각각 jupyter 서버를 실행
+5. 로컬 jupyter에서 Local_Kafka_Producer 실행 후 Hadoop jupyter에서 Spark_Kafka_Consumer 실행하여 실시간으로 데이터가 들어오는지 확인
+6. 저장된 데이터를 MySQL로 옮기기 위하여 Spark_HDFS_to_MySQL 실행
+
 **유의할 점**
 
 1. 분산 시스템을 구축하기 위해서는 각각의 서버가 ssh를 통해 통신하여야한다
